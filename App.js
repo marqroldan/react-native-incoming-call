@@ -14,6 +14,7 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import {
@@ -23,8 +24,62 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import notifee, {
+  AndroidCategory,
+  AndroidImportance,
+  AndroidVisibility,
+} from '@notifee/react-native';
 
 const App: () => React$Node = () => {
+  async function onDisplayNotification() {
+    // Request permissions (required for iOS)
+    await notifee.requestPermission();
+
+    // Create a channel (required for Android)
+    const channelId = await notifee.createChannel({
+      id: 'call',
+      name: 'Incoming Call Channel',
+    });
+
+    // Display a notification
+    await notifee.displayNotification({
+      title: '(21) 1234-1234',
+      body: 'Incoming call',
+      android: {
+        channelId,
+        category: AndroidCategory.CALL,
+        visibility: AndroidVisibility.PUBLIC,
+        importance: AndroidImportance.HIGH,
+        smallIcon: 'ic_launcher',
+        timestamp: Date.now(),
+        showTimestamp: true,
+        pressAction: {
+          id: 'default',
+          launchActivity: 'com.rnincomingcall.IncomingCallActivity',
+        },
+        actions: [
+          {
+            title: 'Accept',
+            pressAction: {
+              id: 'accept',
+              launchActivity: 'default',
+            },
+          },
+          {
+            title: 'Decline',
+            pressAction: {
+              id: 'reject',
+            },
+          },
+        ],
+        fullScreenAction: {
+          id: 'default',
+          launchActivity: 'com.rnincomingcall.IncomingCallActivity',
+        },
+      },
+    });
+  }
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -40,6 +95,7 @@ const App: () => React$Node = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
+              <Button title={'press meee'} onPress={onDisplayNotification} />
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this
