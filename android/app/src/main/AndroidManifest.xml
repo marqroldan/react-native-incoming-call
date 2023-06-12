@@ -3,6 +3,11 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT" />
+    <!-- Xiaomi and similar devices overlay configs -->
+    <uses-permission android:name="android.permission.ACTION_MANAGE_OVERLAY_PERMISSION" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
       android:name=".MainApplication"
       android:label="@string/app_name"
@@ -23,6 +28,13 @@
         </intent-filter>
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+      <activity
+              android:name="com.rnincomingcall.IncomingCallActivity"
+              android:showWhenLocked="true"
+              android:turnScreenOn="true"
+              android:launchMode="singleTop"
+              android:showOnLockScreen="true"
+      />
     </application>
 
 </manifest>
