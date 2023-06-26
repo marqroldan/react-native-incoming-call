@@ -34,7 +34,19 @@
               android:turnScreenOn="true"
               android:launchMode="singleTop"
               android:showOnLockScreen="true"
-      />
+              android:exported="false"
+              android:theme="@style/Theme.AppCompat.Translucent"
+      >
+
+          <intent-filter android:label="Incoming Call">
+              <action android:name="android.intent.action.VIEW" />
+              <category android:name="android.intent.category.DEFAULT" />
+              <!-- Accepts URIs that begin with "example://gizmos” -->
+              <data android:scheme="nowservingph"
+                    android:host="incomingcall" />
+          </intent-filter>
+
+      </activity>
     </application>
 
 </manifest>
