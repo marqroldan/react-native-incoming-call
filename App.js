@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -15,7 +15,11 @@ import {
   Text,
   StatusBar,
   Button,
+  Linking,
+  AppRegistry,
 } from 'react-native';
+
+const RootTagContext = require('react-native/Libraries/ReactNative/RootTagContext');
 
 import {
   Header,
@@ -31,6 +35,7 @@ import notifee, {
 } from '@notifee/react-native';
 
 const App: () => React$Node = () => {
+  const rootTag = useContext(RootTagContext);
   async function onDisplayNotification() {
     // Request permissions (required for iOS)
     await notifee.requestPermission();
@@ -96,6 +101,17 @@ const App: () => React$Node = () => {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Button title={'press meee'} onPress={onDisplayNotification} />
+              <Button
+                title={'launch incoming call screen'}
+                onPress={() => {
+                  const keys = AppRegistry.getAppKeys();
+                  console.log('keys?!?!', keys);
+
+                  AppRegistry.runApplication('incoming-call-activity', {
+                    rootTag,
+                  });
+                }}
+              />
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.js</Text> to change this

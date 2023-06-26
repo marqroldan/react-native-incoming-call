@@ -6,33 +6,44 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
   ScrollView,
-  View,
   Text,
   StatusBar,
+  Button,
+  AppRegistry,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+const RootTagContext = require('react-native/Libraries/ReactNative/RootTagContext');
+
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 
 const IncomingCallScreen: () => React$Node = () => {
+  const rootTag = useContext(RootTagContext);
+
   return (
     <>
       <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
+      <SafeAreaView style={{flex: 1, backgroundColor: 'transparent'}}>
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
-          style={styles.scrollView}>
+          style={styles.scrollView}
+          contentContainerStyle={{flexGrow: 1}}>
           <Text style={styles.sectionTitle}>Incoming Call Screen</Text>
+          <Button
+            title={'launch main application'}
+            onPress={() => {
+              const keys = AppRegistry.getAppKeys();
+              console.log('keys?!?!', keys);
+
+              AppRegistry.runApplication('RNIncomingCall', {
+                rootTag,
+              });
+            }}
+          />
         </ScrollView>
       </SafeAreaView>
     </>
@@ -41,7 +52,7 @@ const IncomingCallScreen: () => React$Node = () => {
 
 const styles = StyleSheet.create({
   scrollView: {
-    backgroundColor: Colors.lighter,
+    backgroundColor: 'white' || 'rgba(255,0,0,0.5)',
   },
   engine: {
     position: 'absolute',
