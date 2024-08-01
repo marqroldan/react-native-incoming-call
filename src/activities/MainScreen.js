@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {useContext} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,11 +14,12 @@ import {
   Text,
   StatusBar,
   Button,
+  AppRegistry,
 } from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 
-export const IncomingCallScreen = () => {
+export const MainScreen = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -26,9 +27,8 @@ export const IncomingCallScreen = () => {
         <ScrollView
           contentInsetAdjustmentBehavior="automatic"
           style={styles.scrollView}
-          contentContainerStyle={{flexGrow: 1}}>
-          <Text style={styles.sectionTitle}>Incoming Call Screen</Text>
-          <Button title={'launch main application'} onPress={() => {}} />
+          contentContainerStyle={{flexGrow: 1, padding: 40}}>
+          <Text style={styles.sectionTitle}>Main Call Screen</Text>
         </ScrollView>
       </SafeAreaView>
     </>
@@ -74,4 +74,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default IncomingCallScreen;
+export default MainScreen;
